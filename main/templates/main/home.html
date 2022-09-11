@@ -1,0 +1,57 @@
+{% extends 'main/base.html' %} {% block content %} {% load static %}
+<div class="" id="home-wrapper" style="background-color: #fff2f0">
+  <div id="home-header">
+    <img src="{% static 'main/bg_books.png' %}" alt="bg" class="home-bg" />
+    <img
+      src="{% static 'main/fg_books.png' %}"
+      alt="fg"
+      class="home-fg img-sml"
+    />
+    <div
+      class="display-1 text-white lineUp"
+      style="font-weight: 400"
+      id="home-title"
+    >
+      Welcome to the Little Library!
+    </div>
+  </div>
+  <div id="home-content-wrapper">
+    <div id="home-content-bg"></div>
+    <div class="min-vh-100 p-3 bg-light" id="home-content">
+      <img src="{% static 'main/Littlebrary.png' %}" alt="logo" height="150" />
+      <div id="home-main-text">
+        Little Brary is made as a local library. you can add your books to here.
+        make your own lists of books. add authors. Read about books and authors.
+        This is free website for everyone.<br/>
+        This website made with django, bootstrap and jquery.
+      </div>
+    </div>
+    <div id="home-float-left">
+      <h2>Book</h2>
+      <br />
+      <p>
+        A book is a medium for recording information in the form of writing or
+        images, typically composed of many pages (made of papyrus, parchment,
+        vellum, or paper) bound together and protected by a cover. The technical
+        term for this physical arrangement is codex (plural, codices). In the
+        history of hand-held physical supports for extended written compositions
+        or records, the codex replaces its predecessor, the scroll. A single
+        sheet in a codex is a leaf and each side of a leaf is a page.
+      </p>
+    </div>
+
+    <div id="home-float-right">
+      <h2>Author</h2>
+      <br />
+      <p>
+        An author is the creator or originator of any written work such as a
+        book or play, and is also considered a writer or poet. More broadly
+        defined, an author is "the person who originated or gave existence to
+        anything" and whose authorship determines responsibility for what was
+        created.
+      </p>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

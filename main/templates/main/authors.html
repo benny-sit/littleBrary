@@ -1,0 +1,62 @@
+{% extends 'main/base.html' %}
+
+{% block title %}
+    Authors
+{% endblock %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container min-vh-100">
+    {% if user.is_authenticated %}
+    <div class="row d-flex justify-content-center my-lg-3 my-md-1">
+        <div class="col-md-12 col-lg-8">
+            <div class="card">
+                <h1 class="card-header">Create Author</h1>
+                <div class="card-body">
+                    <div class="card-text">
+                        <form method="post" action="{% url 'create_author' %}" enctype="multipart/form-data">    
+                            {% csrf_token %}
+                            {{form|crispy}}
+                            <input class="btn btn-success my-2" type="Submit" value="Create" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="row d-flex justify-content-center my-lg-3 my-md-1">
+        <div class="col-md-12 col-lg-8">
+            <div class="card py-0 my-0">
+                <form class="form-group" action="#" method="post">
+                    {% if user.is_authenticated%}
+                    <div class="card-header d-flex justify-content-between">
+                        <h1>List Of Authors</h1>
+                        <button type="submit" name="delete" value="delete" class="btn btn-danger my-0 py-0">Delete</button>
+                    </div>
+                    {% else %}
+                    <h1 class="card-header">List Of Authors</h1>
+                    {% endif %}
+                    {% csrf_token %}
+                    <ul class="list-group list-group-flush" style="font-size: 1.5rem;">
+                        {% for i in authors.all %}
+                        <li class="list-group-item d-flex justify-content-between" >
+                            <a href="{% url 'author_id' i.id %}" style="text-decoration: none;">
+                                {{i.name}}
+                            </a>
+                            {% if user.is_authenticated%}
+                            <div class="d-flex align-items-center">
+                                <a href="{% url 'update_author' i.id %}" class="btn btn-outline-success btn-sm mx-2">Update</a>
+                                <input type="checkbox" value="clicked" class="form-check-input my-auto" name="c{{i.id}}" />
+                            </div>
+                            {% endif %}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </form>
+            </div>
+        </div>
+    </div>    
+</div>
+{% endblock  %}

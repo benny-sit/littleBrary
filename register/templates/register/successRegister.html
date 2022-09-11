@@ -1,0 +1,20 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+    <div class="container min-vh-100">
+        <div class="card my-2">
+            <h3 class="card-header">Success!</h3>
+            <div class="card-body">
+                <div class="card-text">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-success">
+                                {{ message }}
+                            </div> 
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock  %}

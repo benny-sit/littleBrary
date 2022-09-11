@@ -1,0 +1,50 @@
+.img-container {
+    perspective: 1000;
+    position: relative;
+    height: 384px;
+    width: 240px;
+}
+.img-card {
+    display: flex;
+    justify-content: center;
+
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: all 1.0s linear;
+}
+.img-front {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    backface-visibility: hidden;
+}
+.img-front.img-back {
+    display: flex;
+    transform: rotateY(180deg);
+    box-sizing: border-box;
+    background-color: #fff2f0;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.img-container:hover .img-card {
+    transform: rotateY(180deg);
+    box-shadow: -5px 5px 5px #aaa;
+}
+.img-front img {
+    display: block;
+    height: 100%;
+    width: 100%;
+}
+.hide-sm {
+    display: block;
+}
+@media (max-width: 767px) {
+    .hide-sm{
+        display: none !important;
+    }
+}
+.bold-it {
+    font-weight: 700;
+}

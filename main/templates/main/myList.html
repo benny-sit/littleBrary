@@ -1,0 +1,77 @@
+{% extends 'main/base.html' %}
+{% block title %}{{my_list.list_name}}{% endblock  %}
+
+
+{% block content %}
+<div class="container min-vh-100">
+    <div class="row text-center">
+        <h1 class='display-1 text-center'>{{my_list.list_name}}</h1> 
+        <hr/>
+    </div>
+    <div class="row d-flex justify-content-center my-lg-3 my-sm-1">
+        <div class="col-sm-12 col-lg-8">
+            {% for b in  my_list.books_list.all %}
+                <div class="card my-2">
+                    <div class="card-body">
+                        <div class="row d-flex justify-content-center">
+                            <div class="img-container col-sm-12 col-md-6 col-lg-4 ">
+                                <div class="img-card">
+                                    <div class="img-front">
+                                        <img src="{{ b.cover_url }}" class="img-responsive bg-light" alt={{b.book_name}} />
+                                    </div>
+                                    <div class="img-back img-front">
+                                        <a class="btn btn-outline-info btn-lg my-2" href="{% url 'book_id' b.id %}">View</a>
+                                        {% if user.is_authenticated %}
+                                            <a class="btn btn-success btn-lg my-2" href="{% url 'update_book' b.id %}">Update</a>
+                                        {% endif %}
+                                        {% if b.pdf_url %}
+                                            <a href="{{ b.pdf_url }}" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-lg my-2">Open Pdf</a>
+                                        {% endif %}
+                                        <form action="{% url 'open_list' my_list.id %}" method="post">
+                                            {% csrf_token %}
+                                            <input type="submit" value="remove" class="btn btn-danger btn-lg my-2" name="r{{b.id}}" />
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 col-lg-8 hide-sm">
+                                <h3 class="card-title text-center">{{b.book_name}}</h3>
+                                <p class="card-text">
+                                    <span class="bold-it">Author:</span> {{b.author}}<br/>
+                                    <span class="bold-it">Published on:</span> {{b.pub_date}}<br/>
+                                    <span class="bold-it">Number of Pages:</span> {{b.num_pages}}<br/>
+
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor%}
+        </div>
+    </div>
+
+    <div class="row d-flex justify-content-center my-lg-3 my-sm-1">
+        <div class="col-md-12 col-lg-8">
+            <div class="card py-0 my-0">
+                <h1 class="card-header">List Of Books</h1>
+                <ul class="list-group list-group-flush">
+                    {% for i in books.all %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center pb-0 pt-1" >
+                        <a href="" style="text-decoration: none; font-size: 1.3rem;">
+                            {{i.book_name}}
+                        </a>
+                        {% if user.is_authenticated%}
+                        <form action="{% url 'open_list' my_list.id %}" method="post">
+                            {% csrf_token %}
+                            <input type="submit" value="add" class="btn btn-success mt-1" name="a{{i.id}}" />
+                        </form>
+                        {% endif %}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock  %}

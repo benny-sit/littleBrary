@@ -1,0 +1,19 @@
+{% extends 'main/base.html' %} 
+
+{% block title %}Update Book{% endblock %} 
+{%load crispy_forms_tags %} 
+{% block content %}
+<div class="container min-vh-100">
+    <div class="card my-2">
+        <h2 class="card-header">Update Book </h2>
+        <div class="card-body">
+            <div class="card-text">
+                <form method="post" action="{% url 'update_book' id %}">
+                    {% csrf_token %} {{form|crispy}}
+                    <input type="submit" class="btn btn-success mt-2" value="Update" />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

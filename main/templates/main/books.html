@@ -1,0 +1,65 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Books{% endblock  %}
+
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="conteainer-fluid min-vh-100 m-0 p-0">
+    <div class="row m-0 p-0 g-2">
+        <div class="col-md-3">
+            {% if user.is_authenticated %}
+            <div class="card my-2">
+                <div class="card-header">Add Book </div>
+                <div class="card-body">
+                    <div class="card-text">
+                        <form class="form-group" action="{% url 'books' %}" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            {{form|crispy}}
+                            <input type="submit" class="btn btn-primary mt-2" value="Submit" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+        <div class="col-sm-12 col-md-6">
+            {% for b in  books.all %}
+                <div class="card my-2">
+                    <div class="card-body">
+                        <div class="row d-flex justify-content-center">
+                            <div class="img-container col-sm-12 col-md-6 col-lg-4 ">
+                                <div class="img-card">
+                                    <div class="img-front">
+                                        <img src="{{ b.cover_url }}" class="img-responsive bg-light" alt={{b.book_name}} />
+                                    </div>
+                                    <div class="img-back img-front">
+                                        <a class="btn btn-outline-info btn-lg my-2" href="{% url 'book_id' b.id %}">View</a>
+                                        {% if b.pdf_url %}
+                                            <a href="{{ b.pdf_url }}" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-lg my-2">Open Pdf</a>
+                                        {% endif %}
+                                        {% if user.is_authenticated %}
+                                            <a class="btn btn-success btn-lg my-2" href="{% url 'update_book' b.id %}">Update</a>
+                                            <a class="btn btn-danger btn-lg my-2" href="{% url 'delete_book' b.id %}" >Delete</a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 col-lg-8 hide-sm">
+                                <h3 class="card-title text-center">{{b.book_name}}</h3>
+                                <p class="card-text">
+                                    <span class="bold-it">Author:</span> {{b.author}}<br/>
+                                    <span class="bold-it">Published on:</span> {{b.pub_date}}<br/>
+                                    <span class="bold-it">Number of Pages:</span> {{b.num_pages}}<br/>
+
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor%}
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+</div>
+{% endblock  %}

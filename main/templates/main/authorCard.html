@@ -1,0 +1,51 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Author{% endblock  %}
+
+{% block page_style %}
+    <style>
+        .right-hover {
+            animation: appear-right 1s ease-out forwards;
+        }
+        .top-hover{
+            animation: appear-top 1s ease-out forwards;
+        }
+        @keyframes appear-right {
+            0% {
+                transform: translate(7%);
+                opacity: 0.5;
+            }
+            100% {
+                transform: translate(0%);
+                opacity: 1;
+            }
+        }
+        @keyframes appear-top {
+            0% {
+                transform: translateY(-10%);
+                opacity: 0.7;
+            }
+            100% {
+                transform: translate(0%);
+                opacity: 1;
+            }
+        }
+    </style>
+{% endblock  %}
+
+{% block content %}
+    <div class="container min-vh-100 d-flex justify-content-center align-items-center">
+        <div class="row w-100 p-lg-5 py-md-3 py-sm-1" style="min-height: 576px; background-color: #fff2f0;">
+            <div class="col-lg-4 col-md-6 d-flex justify-content-center top-hover">
+                <img src="{{author.portrait_url}}" alt="{{author.name}}" class="" height="320" style="background-color: #aaa;"/>
+            </div>
+            <div class="col-lg-6 col-md-8 col-sm-12 ms-2 right-hover px-4">
+                <h3 class="display-3">{{author.name}}</h3>
+                <span class="bold-it">Born:</span> {{author.born}}}<br/>
+                {% if author.about %}
+                    <span class="bold-it">About:</span><br/>{{author.about}}<br/>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock  %}

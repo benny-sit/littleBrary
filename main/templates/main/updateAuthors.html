@@ -1,0 +1,27 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Update Author{% endblock  %}
+
+{% block content %}
+{% load crispy_forms_tags %}
+<div class="container min-vh-100">
+    {% if user.is_authenticated %}
+    <div class="row d-flex justify-content-center my-lg-3 my-md-1">
+        <div class="col-md-12 col-lg-8">
+            <div class="card">
+                <h1 class="card-header">Update Author</h1>
+                <div class="card-body">
+                    <div class="card-text">
+                        <form method="post" action="{% url 'update_author' id %}" enctype="multipart/form-data">    
+                            {% csrf_token %}
+                            {{form|crispy}}
+                            <input class="btn btn-success my-2" type="Submit" value="Create" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock  %}

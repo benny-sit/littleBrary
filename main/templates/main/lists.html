@@ -1,0 +1,57 @@
+{% extends 'main/base.html' %}
+
+{% block page_style %}
+    <style>
+        .unseen {
+            display: none;
+        }
+    </style>
+{% endblock  %}
+
+{% load static %}
+{% block page_js %}
+    <script type="text/javascript" src="{% static 'main/js/lists.js' %}" defer></script>
+{% endblock  %}
+
+{% block content %}
+<div class="container min-vh-100">
+    <table class="table table-hover my-2">
+        <thead>
+            <tr>
+                <th style="border-right: none;">
+                    <div style="min-height: 23px">{{ user.username}}'s lists</div>
+                </th>
+                <th style="border-left: none; text-align: right;">
+                    <button type="button" class="btn btn-primary btn-sm "id="btn-new-list">New List</button>
+                </th>
+            </tr>
+        </thead> 
+        <tbody>
+            {% for i in lists.all %}
+                <tr>
+                    {% comment %} <th scpoe="row">{{ forloop.counter0 }}</th> {% endcomment %}
+                    <td >
+                        {{i.list_name}}
+                    </td>
+                    <td align='right'>
+                        <a class="btn btn-outline-danger btn-sm" href="{% url 'delete_list' i.id %}">Delete</a>
+                        <a class="btn btn-outline-success btn-sm" href="{% url 'open_list' i.id %}">Open</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            <tr id="add-list" class="unseen">
+                <form method="post" action="{% url 'create_list' %}">
+                    {% csrf_token %}
+                    <td class="col-sm-12 col-md-8 col-lg-6">
+                        <input type="text" name="list_name" class="form-control" id="list_name" placeholder="Name" required/> 
+                    </td>
+                    <td align="right">
+                        <button type="button" class="btn btn-outline-warning btn-sm" id="btn-remove-list">Close</button>
+                        <input type="submit" class="btn btn-success btn-sm" value="Create" />
+                    </td>
+                </form>
+            </tr>
+        </tbody>
+    </table>
+</div>
+{% endblock  %}
