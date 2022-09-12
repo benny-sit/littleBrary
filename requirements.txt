@@ -20,8 +20,6 @@ pefile==2021.9.3
 psycopg2-binary==2.9.3
 pycparser==2.20
 pydub==0.25.1
-pyinstaller==5.0.1
-pyinstaller-hooks-contrib==2022.4
 shiboken2==5.15.2
 sqlparse==0.4.2
 tomli==2.0.1
